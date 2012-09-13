@@ -9,9 +9,19 @@ The Extended Media Query engine will server-side evaluate media queries and adap
 
 ### Example
 
+#### Including the filter in your HTML
+
     <link rel="stylesheet" type="text/css" href="http://wew.io/css/http://mpulp.mobi/labs/wew/css/style.css" />
 
 The URL pattern is: 'http://wew.io/css/cssURL'
+
+#### Using the extended syntax in your CSS
+
+All WURFL capabilities are available using the prefix '-mt-' as the example shown below
+
+    @media all and (-mt-model_name: iPhone) {
+        /* CSS styles just shown to the iPhone */
+    }
 
 ### Details
 
