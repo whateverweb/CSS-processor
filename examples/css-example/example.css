@@ -1,0 +1,22 @@
+dxw_article{        
+  background-color:#ffffff;        
+  padding:5px;        
+  color:black;        
+
+  @media (-mt-css-extension:webkit){            
+    -webkit-border-radius: 10px;        
+  }         
+  @media (-mt-pointing_method: touchscreen) {            
+    padding: 10px;        
+  } 
+  @media NOT (-mt-pointing_method: touchscreen){            
+    padding: 5px;        
+  }
+
+   @media all and (-mt-model_name: iPhone) {
+    img{
+      border: solid black 3px;
+    }
+  }
+}
+
