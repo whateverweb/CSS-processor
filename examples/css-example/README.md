@@ -1,3 +1,3 @@
 ## Example.css
 
-This file contains just a few easy examples of how to use WURFL capabilities as media features
+To get the examples working, you would need to sign up for an account at [whateverweb.com](http://whateverweb.com).
