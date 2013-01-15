@@ -1,144 +1,131 @@
 # Serving CSS from wew.io
 
-### Intro
-The Extended Media Query engine is a server-side Media Query parser which allows to check for a broader set of “media features” from the device database. It supports both standard WURFL capabilities and custom capabilities.
+## Intro
+The CSS Processor is a server-side component used to optimize and process CSS media queries. It supports processing of both standard and 'extended' CSS media queries on the server, allowing CSS to be optimized and adjusted to the device/browser requesting it. The service allows you to optimize the CSS delivered with small, or no changes to your existing and standard CSS(3).
 
-The CSS3 standard includes Media Queries so that we may use different styling based on certain conditions. Unfortunately, the browser might not interpret these queries like you expect it to. The available list of media features is also very limited compared to our device library.
+The import/inline feature enables you to break up your stylesheets into more logical fragments, and then reassemble them in a single request.
 
-Our extensive set of “media features” let you bring back the control to the designers. By letting you query all features of our device library you may successfully differentiate styling properties within the CSS. All this is processed server-side so that it also works on devices that don’t natively support Media Queries.
+### Features
+- minify CSS transferred by deleting sections not relevant, based on media queries
+- conditional CSS based on capabilities resolved on the server using the WEW device repository
+- strip irrelevant vendor prefixes for requesting browser/device
+- inline/combine CSS fragments using 'extended' @import statement
+- cache friendly, both browser cache and edge/proxy caches. Automatic Etag and headers
+- automatic minification (YUI compressor) - except if application is in debug mode
+- automatic compression (Gzip)
 
 
-
-### Getting started
+## Getting started
 1. Sign up for a free account at [whateverweb.com](http://whateverweb.com/)
 2. Register an application to get an application key and service URL.
 
-### Example
-See the official [CSS3 Media Queries specification](http://www.w3.org/TR/css3-mediaqueries/) for official information and examples
-
-#### Including the filter in your HTML
+### Including the filter in your HTML
 
     <link rel="stylesheet" type="text/css" href="http://wew.io/css/http://mpulp.mobi/labs/wew/css/style.css" />
 
-The URL pattern is: 'http://wew.io/css/cssURL'
+The URL pattern is: 'http://appname.wew.io/css/**cssURL**'
 
-#### Using the extended syntax in your CSS
+## Media query evaluation
 
-All WURFL capabilities are available using the prefix '-mt-' as the example shown below
+The CSS Processor will consider the device requesting the CSS and attempt to strip away irrelevant stuff and optimise it as best it can.
 
-    @media all and (-mt-model_name: iPhone) {
+The evaluation process is based on media queries. The processor will evaluate some of the standard W3C media queries and all of the extended media expressions offered. If, for some reason, the processor is unsure about the evaluation (typically it has one or more condition that the server cannot be sure about) the entire CSS block and media query is left as is.
+
+#### Extended media expressions
+The processor handles media expressions starting with '-wew-' by checking them against the capabilities in the [WEW Device Detection Service](https://github.com/whateverweb/device-detection). You can use any capability as a media expression, even custom ones you have defined using the WEW control panel.
+
+	@media (-wew-pointing-method: touchscreen) and (-wew-myCustomCapability: myValue)
+
+Negation can be achieved by prefixing the value with '!'. To match all non-touchscreen devices you could use:
+
+	@media (-wew-pointing-method: !touchscreen)
+
+For evaluation of numerical ranges, add the 'min' and 'max' prefixes, as you would for the standard media expressions. Please note this might look weird when the capability is named 'max-*', like in the example below. The example will match all devices with a 'max-image-width' over 300px:
+
+	@media (-wew-min-max-image-width: 300px)
+
+The extended media expressions can of course be mixed with standard ones:
+
+	@media (-wew-min-max-image-width: 480px) and (min-device-pixel-ratio: 2)
+
+#### Standard media expressions
+The processor will attempt to evaluate standard media expressions against the WEW Device Detection Service if possible. These include:
+* *min-width*, *max-width*
+* *min-device-width*, *max-device-width*
+
+After evaluation, the extended media expressions are stripped from the result, as they would make no sense to the browser.
+
+
+#### Caveats
+* Only media types 'all' and 'screen' are evaluated by the processor, and they are always evaluated to TRUE. For historical reasons, we do not even attempt to evaluate 'handheld' or other media types
+* At the moment, media expressions dealing with resolutions will only work with pixels, and this is the default unit
+* When 
+* If the CSS to be evaluated has incorrect syntax (missing closing brace etc), it will most probably be served without being evaluated *at all*
+
+
+## Imports
+
+All '@import'-statements will be inlined, if possible. The CSS Processor supports using importing fragments throughout the documents and will insert the fragments where the '@import' is placed -- not just at the top of the documents.
+
+	body {
+		@import url('http://demo.wew.io/styles/resetStyles.css');
+	}
+
+Import statements can also contain WEW extended media queries:
+
+	@import url('http://demo.wew.io/styles/iPadStyles.css') all and (-wew-model-name: iPad);
+
+
+## Vendor prefix stripping
+
+If browser is detected for the requesting device, the processor will strip away vendor prefixes for other browsers.
+Recognized prefixes are: *-moz-*, *-webkit-*, *-o-*, *-ms-*
+
+## Examples
+
+Match touchscreen devices with a minimum device width of 320 pixels:
+
+    @media screen and (min-device-width: 320px) and (-wew-pointing-method: touchscreen) {
+    	/* ... */
+    }
+
+
+Match iPhones only:
+
+    @media all and (-wew-model-name: iPhone) {
         /* CSS styles just shown to the iPhone */
     }
 
-### Details
-The MT extensions are annotated with the -mt- prefix like this:
+Matches touchscreen devices **or** devices a minimum of 600px max-image-width.
 
-	(-mt-pointing_method: touchscreen)
-
-**Important information**
-
-*Use the same unit as the Device Library when checking for features. E.g. if the Device Library specifies max_image_width as being 600 for a device one cannot write 600px in the media query.
-The CSS MQ parser will try to evaluate numbers as float in case of a max/min match. E.g. 1.2 > 1.1.*
-
-####Example usage
-
-Matches touchscreen devices with a minimum of 600px max_image_width.
-
-	@media (-mt-pointing_method: touchscreen) AND (-mt-min-max_image_width: 600) {
+	@media (-wew-max-image-width: 600px) , (-wew-pointing-method: touchscreen) {
 		font-size: 18px;
 	}
-Matches touchscreen devices or devices a minimum of 600px max_image_width.
 
-	@media (-mt-pointing_method: touchscreen), (-mt-min-max_image_width: 600) {
+The (uncompressed) output will be:
+
 		font-size: 18px;
-	}
-Negative matching. Negates the result of the full media query.
 
-	@media NOT (-mt-pointing_method: touchscreen) {
-		/* CSS for non-touchscreen devices here */
-	}
-The ONLY keyword is supported. In case of a syntax error our parser will output the media query in the CSS and ONLY should hide the style for older user agents.
 
-	@media ONLY (-mt-pointing_method: touchscreen) {
+Negative matching of media expression
+
+	@media (-wew-pointing_method: !touchscreen) {
 		/* CSS for non-touchscreen devices here */
 	}
 
-####Mixing standard Media Queries with MT extensions
 
-You should never mix standard CSS3 media types or media features with the extended media features within the same media query. You may however mix an extended media query with a CSS3 media query in a media query list like below.
+##### Media Features – some Device Library properties
 
-	@media all and (min-width: 50), (-mt-pointing_method: touchscreen)
-The following code is also valid and useful for mixing expressions.
-
-	@media all and (min-width: 50) {
-		.testClass {
-			font-weight: bold;
-			@media(-mt-min-xhtml_support_level: 2) {
-				font-size: 50;
-			}
-		}
-	}
-If the expression `xhtml_support_level>2` returns true the output from Frame will look like this
-
-	@media all and (min-width: 50) {
-		.testClass {
-			font-weight: bold;
-			font-size: 50;
-		}
-	}
-
-An example that won’t work is this. If the user-agent runs on a touchscreen device it will not be evaluated. However, as explained in Illegal mixed media queries that still may be positively evaluated it may evaluate as a positive FALSE.	
-
-	@media handheld and (-mt-pointing_method: touchscreen) {
-		.testClass {
-			font-weight: bold;
-		}
-	}
-
-####Media types
-
-The  Media Query parser does only support the media type supported “ALL”. The reason for this is that the query “@media (-mt-pointing_method: touchscreen)” is the same as “@media all and (-mt-pointing_method: touchscreen)” according to the CSS3 Media Queries specification.
-
-#####Media Features – some Device Library properties
-
-- pointing_method
 - is_tablet
+- is_app
+- is_desktop
+- pointing_method
 - brand_name
 - device_os
 - device_os_version
-- max_image_width
-- max_image_height
 - dual_orientation
 - css_gradient
 - colors
 
-####Known pitfalls
+Please see the [WEW Device Detection Service](https://github.com/whateverweb/device-detection) for more information.
 
-Our parser is greedy.
-
-This means that if you forget to write a closing bracket after your media query block it will end the block after the next end-bracket (“}”) it finds in your CSS file. The result being either that one more class is filtered out, or that the your CSS will contain a malformed class block.
-
-Illegal mixed media queries that still may be positively evaluated
-
-Consider the following media query when browsing from a regular web-browser on your computer
-
-	@media handheld and (min-device-width: 1px) and (-mt-pointing_method: touchscreen) {
-		.testClass {
-			font-weight: bold;
-		}
-	}
-	
-Logically this will produce the following answers within our parser:
-
-1. Undecided – handheld?
-2. Undecided – min-device-width: 1px?
-3. FALSE – -mt-pointing_method: touchscreen?
-
-Considering that the Media Query standard states that all parts must be evaluated to true for .testClass to be output we have enough info to positively evaluate the expression as FALSE. Your browser is considered to have no touchscreen and the CSS block is stripped from the output.
-
-Negating this result with the NOT-prefix will also work and result in the positively evaluated answer TRUE.
-
-#### Available features
-- Custom defined media features defined on whateverweb.com
-- CSS minification using the [Yahoo YUI Compressor](http://developer.yahoo.com/yui/compressor/)
-- GZip support
