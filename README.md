@@ -23,7 +23,7 @@ The import/inline feature enables you to break up your stylesheets into more log
 
     <link rel="stylesheet" type="text/css" href="http://wew.io/css/http://mpulp.mobi/labs/wew/css/style.css" />
 
-The URL pattern is: 'http://appname.wew.io/css/*cssURL*'
+The URL pattern is http://appname.wew.io/css/**CSS URL**
 
 ## Media query evaluation
 
