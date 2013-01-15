@@ -23,7 +23,7 @@ The import/inline feature enables you to break up your stylesheets into more log
 
     <link rel="stylesheet" type="text/css" href="http://wew.io/css/http://mpulp.mobi/labs/wew/css/style.css" />
 
-The URL pattern is: 'http://appname.wew.io/css/**cssURL**'
+The URL pattern is: 'http://appname.wew.io/css/*cssURL*'
 
 ## Media query evaluation
 
@@ -59,8 +59,8 @@ After evaluation, the extended media expressions are stripped from the result, a
 #### Caveats
 * Only media types 'all' and 'screen' are evaluated by the processor, and they are always evaluated to TRUE. For historical reasons, we do not even attempt to evaluate 'handheld' or other media types
 * At the moment, media expressions dealing with resolutions will only work with pixels, and this is the default unit
-* When 
 * If the CSS to be evaluated has incorrect syntax (missing closing brace etc), it will most probably be served without being evaluated *at all*
+* You may replace underscore character(s) with hyphens in capability names (for instance use '-wew-model-name' instead of '-wew-model_name')
 
 
 ## Imports
