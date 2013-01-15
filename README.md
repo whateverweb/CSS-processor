@@ -21,9 +21,9 @@ The import/inline feature enables you to break up your stylesheets into more log
 
 ### Including the filter in your HTML
 
-    <link rel="stylesheet" type="text/css" href="http://wew.io/css/http://mpulp.mobi/labs/wew/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="http://demo.wew.io/css/http://mpulp.mobi/labs/wew/css/style.css" />
 
-The URL pattern is http://appname.wew.io/css/**CSS URL**
+In the URL, replace 'demo' with your application's name, and point it to the CSS URL you want to process.
 
 ## Media query evaluation
 
