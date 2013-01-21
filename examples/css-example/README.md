@@ -1,3 +1,3 @@
 ## Example.css
 
-To get the examples working, you would need to sign up for an account at [whateverweb.com](http://whateverweb.com).
+To see how the contents of the file changes, based on capabilites, change your user agent in the browser.

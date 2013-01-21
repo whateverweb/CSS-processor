@@ -1,26 +1,54 @@
 
-  
-    h1{
-     position: fixed;
-     top: 0;
-     left: 0;
-     width: 100%;
-      }
+ /*In debug mode comments will be visible*/
 
-  @media (-mt-css-extension:webkit){            
-    -webkit-border-radius: 10px;        
-  }         
+.demo{
+  display: block;
+}  
 
-  @media (-mt-pointing_method: touchscreen) {            
-    padding: 10px;        
-  } 
-
-  @media NOT (-mt-pointing_method: touchscreen){            
-    padding: 5px;        
+/*For Nokia devices; red bold text*/
+  @media all and (-wew-brand-name: Nokia){            
+    .demo{
+      color:red;
+      font-weight: bold;
+    }      
   }
 
-   @media all and (-mt-model_name: iPhone) {
-    img{
-      border: solid black 3px;
+/*For touch screen devices*/
+  @media all and (-wew-pointing_method: touchscreen){            
+    .demo{
+      border: 5px solid maroon;
+    }      
+  }
+
+/*For devices with Android OS, yellow background*/
+   @media all and (-wew-device-os: Android) {
+    .demo{
+      background: yellow;
     }
   }
+
+/*For devices with minimum 320px wide browser secreen and with touch screen*/
+@media screen and (min-device-width: 320px) and (-wew-pointing-method: touchscreen) {
+    .demo{
+      /*The service will only keep the relevant prefixes*/
+      -webkit-border-radius: 20px;
+      -moz-border-radius: 20px;
+      border-radius: 20px;
+      background-color:#E3A20B;
+    }  
+}
+
+/*This standard query will be remoced for devices never in target of 1200 px.*/
+@media all and (min-width: 1200px) {
+    .demo{
+      font-size: 4em;
+    }
+}
+
+
+/*This will evaluate your custom capability as defined on whateverweb.com.*/
+@media all and (-wew-your-magic-feature: true) {
+    .demo{
+      font-size: 14em;
+    }
+}

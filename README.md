@@ -1,6 +1,7 @@
-# Serving CSS from wew.io
+# CSS Processor
+How to optimize your css with server side media queries.
 
-## Intro
+## Introduction
 The CSS Processor is a server-side component used to optimize and process CSS media queries. It supports processing of both standard and 'extended' CSS media queries on the server, allowing CSS to be optimized and adjusted to the device/browser requesting it. The service allows you to optimize the CSS delivered with small, or no changes to your existing and standard CSS(3).
 
 The import/inline feature enables you to break up your stylesheets into more logical fragments, and then reassemble them in a single request.
@@ -13,6 +14,7 @@ The import/inline feature enables you to break up your stylesheets into more log
 - cache friendly, both browser cache and edge/proxy caches. Automatic Etag and headers
 - automatic minification (YUI compressor) - except if application is in debug mode
 - automatic compression (Gzip)
+- "Debug mode" turning off minification and cache
 
 
 ## Getting started
@@ -21,15 +23,19 @@ The import/inline feature enables you to break up your stylesheets into more log
 
 ### Including the filter in your HTML
 
-    <link rel="stylesheet" type="text/css" href="http://css.demo.wew.io/http://mpulp.mobi/labs/wew/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="http://css.demo.wew.io/http://demo.wew.io/styles/style.css" />
 
 In the URL, replace 'demo' with your application's name, and point it to the CSS URL you want to process.
 
 ## Media query evaluation
 
-The CSS Processor will consider the device requesting the CSS and attempt to strip away irrelevant stuff and optimise it as best it can.
+The CSS Processor will consider the device requesting the CSS and attempt to strip away irrelevant stuff and optimize it as best it can.
 
 The evaluation process is based on media queries. The processor will evaluate some of the standard W3C media queries and all of the extended media expressions offered. If, for some reason, the processor is unsure about the evaluation (typically it has one or more condition that the server cannot be sure about) the entire CSS block and media query is left as is.
+
+The below example of a "standard media query" will be removed for clients where 1500px is an impossible value. E.g. iPhones.
+
+	@media all and (min-width: 1500px)
 
 #### Extended media expressions
 The processor handles media expressions starting with '-wew-' by checking them against the capabilities in the [WEW Device Detection Service](https://github.com/whateverweb/device-detection). You can use any capability as a media expression, even custom ones you have defined using the WEW control panel.

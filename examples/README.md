@@ -1,4 +1,8 @@
-# Examples
+# CSS Processor Examples
 
 Here you can find some working examples of the Media Query Extensions.
-To get the examples working, you would need to sign up for an account at [whateverweb.com](http://whateverweb.com).
+
+Please note that to execute the media queries server side, the css must be pulled through the wew.io service. A demo is provided, but we recommend to sign up for an account at [whateverweb.com](http://whateverweb.com) to get the most out of it.
+
+For a list of all device capabilities available as media features, see official [WURFL doc](http://scientiamobile.com/wurflCapability/tree). In addition to this, your custom capabilities are available, of course.
+
