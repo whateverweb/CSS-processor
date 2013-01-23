@@ -18,6 +18,11 @@ legend {
 
 /************Global**************/
 
+h1{
+	text-align: center;
+	text-shadow: rgb(190, 190, 190) 0px 1px 0px, #555 0px -1px ;
+	color:#333;
+}
 body { 
 	font: 100%/1.5 'Gill Sans', 'Droid Sans', 'Calibri', 'Lucida Grande', 'Trebuchet MS', 'Helvetica Neue', 'Arial', sans-serif; 
 	color: #000;
