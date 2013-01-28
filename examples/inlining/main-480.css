@@ -1,0 +1,10 @@
+body {
+	color: #ff0000;
+}
+
+@import url(http://superalias.wew.io/left.css);
+@import url(http://superalias.wew.io/right.css) (min-device-width: 480px);
+
+h1 {
+	color: #0000ff;
+}
