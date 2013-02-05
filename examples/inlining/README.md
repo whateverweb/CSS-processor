@@ -2,7 +2,7 @@
 
 With the WEW CSS-processor you can combine multiple CSS files into one using the @import-statement.
 
-Sometimes it is useful and logic to split your layout into mulitple CSS files. However, using the standard CSS import statement can easily impact page performance because browsers need to make more requests - one per imported resource.
+Sometimes it is useful and logic to split your layout into multiple CSS files. However, using the standard CSS import statement can easily impact page performance because browsers need to make more requests - one per imported resource.
 
 The WEW CSS-processor tries to address this issue by rendering the imports on the server, combining the different resources into a single response. To enable the WEW CSS processor in your markup, simply wrap it around the 'main' CSS file:
 
@@ -22,3 +22,5 @@ In the next example we only want to include the 'right.css' for devices with a m
 	- main-480.css
 		+ left.css
 		+ right.css
+
+[Live Example](http://demo.wew.io/CSS-processor/examples/inlining/)
