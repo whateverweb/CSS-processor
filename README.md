@@ -4,7 +4,7 @@ How to optimize your css with server side media queries.
 ## Introduction
 The CSS Processor is a server-side component used to optimize and process CSS media queries. It supports processing of both standard and 'extended' CSS media queries on the server, allowing CSS to be optimized and adjusted to the device/browser requesting it. The service allows you to optimize the CSS delivered with small, or no changes to your existing and standard CSS(3).
 
-The import/inline feature enables you to break up your stylesheets into more logical fragments, and then reassemble them in a single request.
+The import/inline feature enables you to break up your stylesheets into more manageable fragments and have them reassembled with a single request to the server.
 
 ### Features
 - minify CSS transferred by deleting sections not relevant, based on media queries
@@ -14,7 +14,7 @@ The import/inline feature enables you to break up your stylesheets into more log
 - cache friendly, both browser cache and edge/proxy caches. Automatic Etag and headers
 - automatic minification (YUI compressor) - except if application is in debug mode
 - automatic compression (Gzip)
-- "Debug mode" turning off minification and cache
+- [development mode](https://github.com/whateverweb/Getting-started-with-wew/wiki/Development-Mode-on-Applications) -- turning off minification and cache
 
 
 ## Getting started
@@ -124,7 +124,7 @@ Negative matching of media expression
 
 - is_tablet
 - is_app
-- is_desktop
+- is_full_desktop
 - pointing_method
 - brand_name
 - device_os
