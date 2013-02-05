@@ -122,8 +122,8 @@ Negative matching of media expression
 
 ##### Media Features – some Device Library properties
 
+- is_mobile
 - is_tablet
-- is_app
 - is_full_desktop
 - pointing_method
 - brand_name
