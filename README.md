@@ -1,5 +1,5 @@
 # CSS Processor
-How to optimize your css with server side media queries.
+How to optimize your CSS with server side media queries.
 
 ## Introduction
 The CSS Processor is a server-side component used to optimize and process CSS media queries. It supports processing of both standard and 'extended' CSS media queries on the server, allowing CSS to be optimized and adjusted to the device/browser requesting it. The service allows you to optimize the CSS delivered with small, or no changes to your existing and standard CSS(3).
