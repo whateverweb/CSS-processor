@@ -6,3 +6,4 @@ Please note that to execute the media queries server side, the css must be pulle
 
 For a list of all device capabilities available as media features, see official [WURFL doc](http://scientiamobile.com/wurflCapability/tree). In addition to this, your custom capabilities are available, of course.
 
+Please see the [CSS Optimizer docs](http://docs.whateverweb.com/documentation/imports/) for more information.
