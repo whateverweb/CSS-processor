@@ -1,0 +1,37 @@
+.box {
+	border: 3px solid #999;
+	border-radius: 5px;
+	-webkit-flex: 1;
+	margin: 0 1em 1em 1em;
+	padding: 10px;
+}
+
+.wrapper {
+	display: -webkit-flex;
+	-webkit-flex-direction: row;
+	-webkit-flex-wrap: wrap;
+
+	-webkit-align-items: stretch;
+	-webklit-justify-content: space-between;
+}
+
+.content1 {
+	-webkit-order: 1;
+	-webkit-flex: 3;
+}
+
+.content2 {
+	-webkit-order: 2;
+}
+
+.content3 {
+	-webkit-order: 3;
+}
+
+.content4 {
+	-webkit-order: 4;
+}
+
+.picturebox {
+	-webkit-order: 5;
+}

@@ -1,0 +1,87 @@
+body {
+	margin: 0;
+	padding: 20px;
+	background-color: #999;
+	color: #fff;
+	background-image: 
+	    -webkit-gradient(linear, 0 100%, 0 0, from(indianred), to(palegoldenrod));
+	background-image: 
+	    -webkit-linear-gradient(indianred 0%, palegoldenrod 100%);
+	background-image: 
+	    -moz-linear-gradient(indianred 0%, palegoldenrod 100%);
+	background-image: 
+	    -o-linear-gradient(indianred 0%, palegoldenrod 100%);
+	background-image: 
+	    linear-gradient(indianred 0%, palegoldenrod 100%); 
+	font: 87.5%/1.4 HelveticaNeue, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+img {
+	max-width: 100%;
+	display: block;
+	height: auto;
+}
+
+figure {
+	margin: 0;
+	padding: 0;
+}
+
+figcaption {
+	font-family: "Georgia","Times New Roman",serif;
+	text-align: center;
+	padding: 0.5em 0 1em 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Georgia","Times New Roman",serif;
+    font-weight: normal;
+    padding: 0;
+    margin: 0;
+}
+
+h1 {
+    font-size: 328.571%;
+    margin-bottom: 0.2em;
+}
+
+h1.title {
+	text-align: center;
+	text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+}
+
+@media (-wew-browser: IE) {
+	h1.title:after {
+		content: ": IE 10+";
+	}
+}
+
+@media (-wew-browser: Chrome) {
+	h1.title:after {
+		content: ": Chrome!";
+	}
+}
+
+h2 {
+    font-size: 250%;
+    margin-bottom: 0.2em;
+}
+
+h3 {
+    font-size: 150%;
+    margin-bottom: 0.2em;
+}
+
+p {
+	margin:0;
+	padding: 0 0 1em 0;
+}
+
+/* use grid layout for IE */
+@import 'ms-grid-layout.css' screen and (-wew-browser: IE);
+
+/* use flexbox layout for Chrome */
+@import 'flex-layout.css' screen and (-wew-browser: Chrome);
+
+
+/* end of file */
